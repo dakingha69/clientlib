@@ -250,6 +250,49 @@ export class Trustline {
     }
   }
 
+  public async prepareOpenCollateralized(
+    gatewayAddress: string,
+    collateralValue: string | number,
+    givenToGatewayValue: string | number,
+    options: TxOptions = {}
+  ): Promise<TxObject> {
+    const { gasLimit, gasPrice } = options
+
+    const { decimals } = await this.currencyNetwork.getGatedNetwork(
+      gatewayAddress
+    )
+
+    const funcName = 'openCollateralizedTrustline'
+    const funcArgs: any[] = [
+      utils.convertToHexString(utils.calcRaw(givenToGatewayValue, decimals))
+    ]
+    const collateralRaw = utils.convertToHexString(
+      utils.calcRaw(collateralValue, 18)
+    )
+
+    const {
+      rawTx,
+      ethFees,
+      delegationFees
+    } = await this.transaction.prepareContractTransaction(
+      await this.user.getAddress(),
+      gatewayAddress,
+      'CurrencyNetworkGateway',
+      funcName,
+      funcArgs,
+      {
+        gasLimit: gasLimit ? new BigNumber(gasLimit) : undefined,
+        gasPrice: gasPrice ? new BigNumber(gasPrice) : undefined,
+        value: new BigNumber(collateralRaw)
+      }
+    )
+    return {
+      ethFees: utils.convertToAmount(ethFees),
+      delegationFees: utils.convertToDelegationFees(delegationFees),
+      rawTx
+    }
+  }
+
   /**
    * Signs a raw transaction object as returned by `prepareAccept` or `prepareUpdate`
    * and sends the signed transaction.

@@ -36,6 +36,15 @@ export class CurrencyNetwork {
     this.getDecimals = this._getDecimalsCached()
   }
 
+  public async getGatedNetwork(
+    gatewayAddress: string
+  ): Promise<NetworkDetails> {
+    const gateway = await this.provider.fetchEndpoint<any>(
+      `gateways/${gatewayAddress}`
+    )
+    return this.getInfo(gateway.gatedNetworkAddress)
+  }
+
   /**
    * Returns all registered currency networks.
    */

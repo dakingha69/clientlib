@@ -1,6 +1,6 @@
 import { BigNumber } from 'bignumber.js'
 import { ethers } from 'ethers'
-import TrustlinesContractsAbi from '../contracts.json'
+import TrustlinesContractsAbi from './contracts.json'
 
 import { TLProvider } from './providers/TLProvider'
 import { TLSigner } from './signers/TLSigner'

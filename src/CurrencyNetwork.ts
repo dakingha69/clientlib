@@ -45,6 +45,15 @@ export class CurrencyNetwork {
     return this.getInfo(gateway.gatedNetworkAddress)
   }
 
+  public async getShieldedNetwork(
+    shieldAddress: string
+  ): Promise<NetworkDetails> {
+    const shield = await this.provider.fetchEndpoint<any>(
+      `shields/${shieldAddress}`
+    )
+    return this.getInfo(shield.networkAddress)
+  }
+
   /**
    * Returns all registered currency networks.
    */

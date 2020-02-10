@@ -224,7 +224,7 @@ export const formatToAmount = (
   return {
     decimals,
     raw: new BigNumber(raw).toString(),
-    value: calcValue(raw, decimals).toString()
+    value: calcValue(raw, decimals).toFixed()
   }
 }
 

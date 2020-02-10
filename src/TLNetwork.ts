@@ -7,6 +7,7 @@ import { Event } from './Event'
 import { Exchange } from './Exchange'
 import { Messaging } from './Messaging'
 import { Payment } from './Payment'
+import { Shield } from './Shield'
 import { Transaction } from './Transaction'
 import { Trustline } from './Trustline'
 import { User } from './User'
@@ -93,6 +94,7 @@ export class TLNetwork {
    * @hidden
    */
   public provider: TLProvider
+  public shield: Shield
 
   /**
    * Initiates a new TLNetwork instance that provides the public interface to trustlines-network library.
@@ -174,6 +176,13 @@ export class TLNetwork {
       user: this.user
     })
     this.ethWrapper = new EthWrapper({
+      provider: this.provider,
+      transaction: this.transaction,
+      user: this.user
+    })
+    this.shield = new Shield({
+      currencyNetwork: this.currencyNetwork,
+      event: this.event,
       provider: this.provider,
       transaction: this.transaction,
       user: this.user

@@ -143,6 +143,7 @@ export class Shield {
     shieldAddress: string,
     proof: string[],
     inputs: string[],
+    root: string,
     nullifierC: string,
     nullifierD: string,
     commitmentE: string,
@@ -151,17 +152,11 @@ export class Shield {
   ): Promise<TxObject> {
     const { gasLimit, gasPrice } = options
 
-    const shieldedNetwork = await this.currencyNetwork.getShieldedNetwork(
-      shieldAddress
-    )
-    const decimals = await this.currencyNetwork.getDecimals(
-      shieldedNetwork.address
-    )
-
     const funcName = 'transfer'
     const funcArgs: any[] = [
       proof.map(p => utils.convertToHexString(p)),
       inputs.map(i => utils.convertToHexString(i)),
+      root,
       nullifierC,
       nullifierD,
       commitmentE,

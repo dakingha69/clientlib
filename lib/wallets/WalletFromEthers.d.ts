@@ -5,17 +5,17 @@ import { EthersWalletData, IdentityWalletData } from '../typings'
  * `ethers.Wallet`. We also use this to add some conversion methods adapted to our internal types.
  */
 export declare class WalletFromEthers extends ethers.Wallet {
-  public static fromWalletData(
+  static fromWalletData(
     walletData: EthersWalletData | IdentityWalletData
   ): WalletFromEthers
-  public static createRandom(): WalletFromEthers
-  public static fromEncryptedJson(
+  static createRandom(): WalletFromEthers
+  static fromEncryptedJson(
     encryptedJson: string,
     password: string,
     progressCallback?: (progress: number) => any
   ): Promise<WalletFromEthers>
-  public static fromMnemonic(mnemonic: string): WalletFromEthers
+  static fromMnemonic(mnemonic: string): WalletFromEthers
   constructor(privateKey: string, mnemonic?: string)
-  public toEthersWalletData(): EthersWalletData
-  public toIdentityWalletData(identityAddress: string): IdentityWalletData
+  toEthersWalletData(): EthersWalletData
+  toIdentityWalletData(identityAddress: string): IdentityWalletData
 }

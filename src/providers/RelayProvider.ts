@@ -155,15 +155,9 @@ export class RelayProvider implements TLProvider {
   public async sendSignedTransaction(
     signedTransaction: string
   ): Promise<string> {
-    const headers = new Headers({ 'Content-Type': 'application/json' })
-    const options = {
-      body: JSON.stringify({
-        rawTransaction: ethers.utils.hexlify(signedTransaction)
-      }),
-      headers,
-      method: 'POST'
-    }
-    return this.fetchEndpoint<string>(`relay`, options)
+    return this.postToEndpoint<string>(`relay`, {
+      rawTransaction: ethers.utils.hexlify(signedTransaction)
+    })
   }
 
   /**

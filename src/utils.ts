@@ -1,5 +1,6 @@
 import { BigNumber } from 'bignumber.js'
 import * as ethUtils from 'ethereumjs-util'
+import nodeFetch from 'node-fetch'
 import ReconnectingWebSocket from 'reconnecting-websocket'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/mergeMap'
@@ -40,7 +41,7 @@ export const fetchUrl = async <T>(
   url: string,
   options?: object
 ): Promise<T> => {
-  const response = await fetch(url, options)
+  const response = await (typeof fetch === "function" ? fetch(url, options) : nodeFetch(url, options))
   const json = await response.json()
   if (response.status !== 200) {
     throw new Error(

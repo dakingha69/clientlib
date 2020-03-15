@@ -1,4 +1,5 @@
 import { BigNumber } from 'bignumber.js'
+import NodeHeaders from 'node-fetch'
 
 import { TLProvider } from '../../src/providers/TLProvider'
 
@@ -116,7 +117,9 @@ export class FakeTLProvider implements TLProvider {
   public async postToEndpoint<T>(endpoint: string, data: any): Promise<T> {
     const options = {
       body: JSON.stringify(data),
-      headers: new Headers({ 'Content-Type': 'application/json' }),
+      headers: globalThis.Headers
+        ? new Headers({ 'Content-Type': 'application/json' })
+        : new NodeHeaders({ 'Content-Type': 'application/json' }),
       method: 'POST'
     }
     return this.fetchEndpoint<T>(endpoint, options)

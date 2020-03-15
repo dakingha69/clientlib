@@ -200,12 +200,9 @@ export class User {
    * NOTE: Used only for dev purposes.
    */
   public async requestEth(): Promise<string> {
-    const options = {
-      body: JSON.stringify({ address: this.address }),
-      headers: new Headers({ 'Content-Type': 'application/json' }),
-      method: 'POST'
-    }
-    return this.provider.fetchEndpoint<string>(`request-ether`, options)
+    return this.provider.postToEndpoint<string>(`request-ether`, {
+      address: this.address
+    })
   }
 
   /**

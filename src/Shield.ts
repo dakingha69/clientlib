@@ -184,4 +184,57 @@ export class Shield {
       rawTx
     }
   }
+
+  public async prepareBurnCommitment(
+    shieldAddress: string,
+    proof: string[],
+    inputs: string[],
+    root: string,
+    nullifier: string,
+    burnValue: string | number,
+    payTo: string,
+    options: TLOptions = {}
+  ): Promise<TxObject> {
+    const { gasLimit, gasPrice } = options
+
+    const shieldedNetwork = await this.currencyNetwork.getShieldedNetwork(
+      shieldAddress
+    )
+    const decimals = await this.currencyNetwork.getDecimals(
+      shieldedNetwork.address
+    )
+
+    const funcName = 'burn'
+    const funcArgs: any[] = [
+      proof.map(p => utils.convertToHexString(p)),
+      inputs.map(i => utils.convertToHexString(i)),
+      root,
+      nullifier,
+      utils.convertToHexString(
+        utils.calcRaw(burnValue, decimals.networkDecimals)
+      ),
+      payTo
+    ]
+
+    const {
+      rawTx,
+      ethFees,
+      delegationFees
+    } = await this.transaction.prepareContractTransaction(
+      await this.user.getAddress(),
+      shieldAddress,
+      'CurrencyNetworkShield',
+      funcName,
+      funcArgs,
+      {
+        gasLimit: gasLimit ? new BigNumber(gasLimit) : undefined,
+        gasPrice: gasPrice ? new BigNumber(gasPrice) : undefined
+      }
+    )
+    return {
+      ethFees: utils.convertToAmount(ethFees),
+      delegationFees: utils.convertToDelegationFees(delegationFees),
+      rawTx
+    }
+  }
 }

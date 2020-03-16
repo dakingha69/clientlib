@@ -128,7 +128,6 @@ var __generator =
   }
 import { BigNumber } from 'bignumber.js'
 import { ethers } from 'ethers'
-import NodeHeaders from 'node-fetch'
 import utils from '../utils'
 var RelayProvider = /** @class */ (function() {
   function RelayProvider(relayApiUrl, relayWsApiUrl) {
@@ -158,10 +157,7 @@ var RelayProvider = /** @class */ (function() {
       return __generator(this, function(_a) {
         options = {
           body: JSON.stringify(data),
-          headers:
-            typeof Headers !== 'undefined'
-              ? new Headers({ 'Content-Type': 'application/json' })
-              : new NodeHeaders({ 'Content-Type': 'application/json' }),
+          headers: { 'Content-Type': 'application/json' },
           method: 'POST'
         }
         return [2 /*return*/, this.fetchEndpoint(endpoint, options)]

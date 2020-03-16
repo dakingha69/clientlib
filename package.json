@@ -87,10 +87,10 @@
     "webpack-cli": "^3.0.8"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "bignumber.js": "7.2.1",
     "ethereumjs-util": "^5.2.0",
     "ethers": "^4.0.23",
-    "node-fetch": "^2.6.0",
     "reconnecting-websocket": "^4.1.10",
     "rxjs": "^5.4.1",
     "simple-jsonrpc-js": "0.0.10",

@@ -1,6 +1,5 @@
 import { BigNumber } from 'bignumber.js'
 import { ethers } from 'ethers'
-import NodeHeaders from "node-fetch";
 import { Observable } from 'rxjs/Observable'
 
 import utils from '../utils'
@@ -41,7 +40,7 @@ export class RelayProvider implements TLProvider {
   public async postToEndpoint<T>(endpoint: string, data: any): Promise<T> {
     const options = {
       body: JSON.stringify(data),
-      headers: typeof Headers !== 'undefined' ? new Headers({ 'Content-Type': 'application/json' }) : new NodeHeaders({ 'Content-Type': 'application/json' }),
+      headers: { 'Content-Type': 'application/json' },
       method: 'POST'
     }
     return this.fetchEndpoint<T>(endpoint, options)

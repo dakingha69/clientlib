@@ -1,6 +1,6 @@
+import axios from 'axios'
 import { BigNumber } from 'bignumber.js'
 import * as ethUtils from 'ethereumjs-util'
-import nodeFetch from 'node-fetch'
 import ReconnectingWebSocket from 'reconnecting-websocket'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/mergeMap'
@@ -41,14 +41,16 @@ export const fetchUrl = async <T>(
   url: string,
   options?: object
 ): Promise<T> => {
-  const response = await (typeof fetch === "function" ? fetch(url, options) : nodeFetch(url, options))
-  const json = await response.json()
-  if (response.status !== 200) {
+  const { status, data } = await axios({
+    url,
+    ...options
+  })
+  if (status !== 200) {
     throw new Error(
-      `Error fetching ${url} | Status ${response.status} | ${json.message}`
+      `Error fetching ${url} | Status ${status} | ${data.message}`
     )
   } else {
-    return json
+    return data
   }
 }
 

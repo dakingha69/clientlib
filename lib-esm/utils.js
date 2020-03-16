@@ -140,13 +140,13 @@ var __generator =
 var _this = this
 import { BigNumber } from 'bignumber.js'
 import * as ethUtils from 'ethereumjs-util'
-import nodeFetch from 'node-fetch'
 import ReconnectingWebSocket from 'reconnecting-websocket'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/mergeMap'
 import { Observable } from 'rxjs/Observable'
 import JsonRPC from 'simple-jsonrpc-js'
 import NodeWebSocket from 'ws'
+import axios from 'axios'
 if (
   typeof module !== 'undefined' &&
   module.exports &&
@@ -164,32 +164,24 @@ if (
  */
 export var fetchUrl = function(url, options) {
   return __awaiter(_this, void 0, void 0, function() {
-    var response, json
-    return __generator(this, function(_a) {
-      switch (_a.label) {
+    var _a, status, data
+    return __generator(this, function(_b) {
+      switch (_b.label) {
         case 0:
-          return [
-            4 /*yield*/,
-            typeof fetch === 'function'
-              ? fetch(url, options)
-              : nodeFetch(url, options)
-          ]
+          return [4 /*yield*/, axios(__assign({ url: url }, options))]
         case 1:
-          response = _a.sent()
-          return [4 /*yield*/, response.json()]
-        case 2:
-          json = _a.sent()
-          if (response.status !== 200) {
+          ;(_a = _b.sent()), (status = _a.status), (data = _a.data)
+          if (status !== 200) {
             throw new Error(
               'Error fetching ' +
                 url +
                 ' | Status ' +
-                response.status +
+                status +
                 ' | ' +
-                json.message
+                data.message
             )
           } else {
-            return [2 /*return*/, json]
+            return [2 /*return*/, data]
           }
           return [2 /*return*/]
       }

@@ -39,7 +39,7 @@ export class RelayProvider implements TLProvider {
 
   public async postToEndpoint<T>(endpoint: string, data: any): Promise<T> {
     const options = {
-      body: JSON.stringify(data),
+      data,
       headers: { 'Content-Type': 'application/json' },
       method: 'POST'
     }

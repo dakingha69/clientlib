@@ -156,7 +156,7 @@ var RelayProvider = /** @class */ (function() {
       var options
       return __generator(this, function(_a) {
         options = {
-          body: JSON.stringify(data),
+          data: data,
           headers: { 'Content-Type': 'application/json' },
           method: 'POST'
         }

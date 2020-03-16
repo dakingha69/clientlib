@@ -138,6 +138,7 @@ var __generator =
     }
   }
 var _this = this
+import axios from 'axios'
 import { BigNumber } from 'bignumber.js'
 import * as ethUtils from 'ethereumjs-util'
 import ReconnectingWebSocket from 'reconnecting-websocket'
@@ -146,7 +147,6 @@ import 'rxjs/add/operator/mergeMap'
 import { Observable } from 'rxjs/Observable'
 import JsonRPC from 'simple-jsonrpc-js'
 import NodeWebSocket from 'ws'
-import axios from 'axios'
 if (
   typeof module !== 'undefined' &&
   module.exports &&

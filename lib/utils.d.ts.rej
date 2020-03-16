@@ -1,0 +1,109 @@
+diff a/lib/utils.d.ts b/lib/utils.d.ts	(rejected hunks)
+@@ -37 +53,4 @@ export declare const createLink: (params: any[], customBase?: string) => string;
+-export declare const calcRaw: (value: BigNumber.Value, decimals: number) => BigNumber;
++export declare const calcRaw: (
++  value: BigNumber.Value,
++  decimals: number
++) => BigNumber
+@@ -43 +62,4 @@ export declare const calcRaw: (value: BigNumber.Value, decimals: number) => BigN
+-export declare const calcValue: (raw: BigNumber.Value, decimals: number) => BigNumber;
++export declare const calcValue: (
++  raw: BigNumber.Value,
++  decimals: number
++) => BigNumber
+@@ -49 +71,4 @@ export declare const calcValue: (raw: BigNumber.Value, decimals: number) => BigN
+-export declare const formatToAmountInternal: (raw: BigNumber.Value, decimals: number) => AmountInternal;
++export declare const formatToAmountInternal: (
++  raw: BigNumber.Value,
++  decimals: number
++) => AmountInternal
+@@ -60 +85,4 @@ export declare const convertToAmount: (amount: AmountInternal) => Amount;
+-export declare const formatToAmount: (raw: BigNumber.Value, decimals: number) => Amount;
++export declare const formatToAmount: (
++  raw: BigNumber.Value,
++  decimals: number
++) => Amount
+@@ -67 +95,5 @@ export declare const formatToAmount: (raw: BigNumber.Value, decimals: number) =>
+-export declare const formatToDelegationFeesInternal: (raw: BigNumber.Value, decimals: number, currencyNetworkOfFees: string) => DelegationFeesInternal;
++export declare const formatToDelegationFeesInternal: (
++  raw: BigNumber.Value,
++  decimals: number,
++  currencyNetworkOfFees: string
++) => DelegationFeesInternal
+@@ -101 +143 @@ export declare const convertEthToWei: (value: string | number) => number;
+-export declare const convertToHexString: (decimalStr: BigNumber.Value) => string;
++export declare const convertToHexString: (decimalStr: BigNumber.Value) => string
+@@ -131,23 +178,50 @@ declare const _default: {
+-    buildApiUrl: (protocol: string, host: string, port: string | number, path: string) => string;
+-    buildUrl: (baseUrl: string, params?: object | any[]) => string;
+-    calcRaw: (value: BigNumber.Value, decimals: number) => BigNumber;
+-    calcValue: (raw: BigNumber.Value, decimals: number) => BigNumber;
+-    checkAddress: (address: string) => boolean;
+-    convertEthToWei: (value: string | number) => number;
+-    convertToAmount: (amount: AmountInternal) => Amount;
+-    convertToHexString: (decimalStr: BigNumber.Value) => string;
+-    convertToDelegationFees: (delegationFees: DelegationFeesInternal) => DelegationFeesObject;
+-    createLink: (params: any[], customBase?: string) => string;
+-    fetchUrl: <T>(url: string, options?: object) => Promise<T>;
+-    formatEndpoint: (endpoint: string) => string;
+-    formatEvent: <T>(event: any, networkDecimals: number, interestRateDecimals: number) => T;
+-    formatExchangeEvent: (exchangeEvent: AnyExchangeEventRaw, makerDecimals: number, takerDecimals: number) => AnyExchangeEvent;
+-    formatToAmount: (raw: BigNumber.Value, decimals: number) => Amount;
+-    formatToAmountInternal: (raw: BigNumber.Value, decimals: number) => AmountInternal;
+-    formatToDelegationFeesInternal: (raw: BigNumber.Value, decimals: number, currencyNetworkOfFees: string) => DelegationFeesInternal;
+-    generateRandomNumber: (decimals: number) => BigNumber;
+-    isURL: (str: any) => boolean;
+-    trimUrl: (url: string) => string;
+-    websocketStream: (url: string, functionName: string, args: object, reconnectingOptions?: ReconnectingWSOptions) => Observable<any>;
+-};
+-export default _default;
++  buildApiUrl: (
++    protocol: string,
++    host: string,
++    port: string | number,
++    path: string
++  ) => string
++  buildUrl: (baseUrl: string, params?: object | any[]) => string
++  calcRaw: (value: BigNumber.Value, decimals: number) => BigNumber
++  calcValue: (raw: BigNumber.Value, decimals: number) => BigNumber
++  checkAddress: (address: string) => boolean
++  convertEthToWei: (value: string | number) => number
++  convertToAmount: (amount: AmountInternal) => Amount
++  convertToHexString: (decimalStr: BigNumber.Value) => string
++  convertToDelegationFees: (
++    delegationFees: DelegationFeesInternal
++  ) => DelegationFeesObject
++  createLink: (params: any[], customBase?: string) => string
++  fetchUrl: <T>(url: string, options?: object) => Promise<T>
++  formatEndpoint: (endpoint: string) => string
++  formatEvent: <T>(
++    event: any,
++    networkDecimals: number,
++    interestRateDecimals: number
++  ) => T
++  formatExchangeEvent: (
++    exchangeEvent: AnyExchangeEventRaw,
++    makerDecimals: number,
++    takerDecimals: number
++  ) => AnyExchangeEvent
++  formatToAmount: (raw: BigNumber.Value, decimals: number) => Amount
++  formatToAmountInternal: (
++    raw: BigNumber.Value,
++    decimals: number
++  ) => AmountInternal
++  formatToDelegationFeesInternal: (
++    raw: BigNumber.Value,
++    decimals: number,
++    currencyNetworkOfFees: string
++  ) => DelegationFeesInternal
++  generateRandomNumber: (decimals: number) => BigNumber
++  isURL: (str: any) => boolean
++  trimUrl: (url: string) => string
++  websocketStream: (
++    url: string,
++    functionName: string,
++    args: object,
++    reconnectingOptions?: ReconnectingWSOptions
++  ) => Observable<any>
++}
++export default _default

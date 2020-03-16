@@ -51,7 +51,7 @@ export declare const createLink: (params: any[], customBase?: string) => string
  * @param decimals Number of decimals.
  */
 export declare const calcRaw: (
-  value: BigNumber.Value,
+  value: string | number | BigNumber,
   decimals: number
 ) => BigNumber
 /**
@@ -60,7 +60,7 @@ export declare const calcRaw: (
  * @param decimals Number of decimals.
  */
 export declare const calcValue: (
-  raw: BigNumber.Value,
+  raw: string | number | BigNumber,
   decimals: number
 ) => BigNumber
 /**
@@ -69,7 +69,7 @@ export declare const calcValue: (
  * @param decimals Number of decimals.
  */
 export declare const formatToAmountInternal: (
-  raw: BigNumber.Value,
+  raw: string | number | BigNumber,
   decimals: number
 ) => AmountInternal
 /**
@@ -83,7 +83,7 @@ export declare const convertToAmount: (amount: AmountInternal) => Amount
  * @param decimals Number of decimals.
  */
 export declare const formatToAmount: (
-  raw: BigNumber.Value,
+  raw: string | number | BigNumber,
   decimals: number
 ) => Amount
 /**
@@ -93,7 +93,7 @@ export declare const formatToAmount: (
  * @param currencyNetworkOfFees the currency network corresponding to the delegation fees
  */
 export declare const formatToDelegationFeesInternal: (
-  raw: BigNumber.Value,
+  raw: string | number | BigNumber,
   decimals: number,
   currencyNetworkOfFees: string
 ) => DelegationFeesInternal
@@ -140,7 +140,9 @@ export declare const convertEthToWei: (value: string | number) => number
  * Returns the hexdecimal representation of given decimal string. The value has to be an integer.
  * @param decimalStr Decimal string representation of number.
  */
-export declare const convertToHexString: (decimalStr: BigNumber.Value) => string
+export declare const convertToHexString: (
+  decimalStr: string | number | BigNumber
+) => string
 /**
  * Generates a random number with specified decimals.
  * @param decimals Decimals which determine size of generated number.
@@ -182,12 +184,12 @@ declare const _default: {
     path: string
   ) => string
   buildUrl: (baseUrl: string, params?: object | any[]) => string
-  calcRaw: (value: BigNumber.Value, decimals: number) => BigNumber
-  calcValue: (raw: BigNumber.Value, decimals: number) => BigNumber
+  calcRaw: (value: string | number | BigNumber, decimals: number) => BigNumber
+  calcValue: (raw: string | number | BigNumber, decimals: number) => BigNumber
   checkAddress: (address: string) => boolean
   convertEthToWei: (value: string | number) => number
   convertToAmount: (amount: AmountInternal) => Amount
-  convertToHexString: (decimalStr: BigNumber.Value) => string
+  convertToHexString: (decimalStr: string | number | BigNumber) => string
   convertToDelegationFees: (
     delegationFees: DelegationFeesInternal
   ) => DelegationFeesObject
@@ -204,13 +206,13 @@ declare const _default: {
     makerDecimals: number,
     takerDecimals: number
   ) => AnyExchangeEvent
-  formatToAmount: (raw: BigNumber.Value, decimals: number) => Amount
+  formatToAmount: (raw: string | number | BigNumber, decimals: number) => Amount
   formatToAmountInternal: (
-    raw: BigNumber.Value,
+    raw: string | number | BigNumber,
     decimals: number
   ) => AmountInternal
   formatToDelegationFeesInternal: (
-    raw: BigNumber.Value,
+    raw: string | number | BigNumber,
     decimals: number,
     currencyNetworkOfFees: string
   ) => DelegationFeesInternal

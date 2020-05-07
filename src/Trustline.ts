@@ -293,6 +293,113 @@ export class Trustline {
     }
   }
 
+  public async prepareClaim(
+    gatewayAddress: string,
+    claimValue: string | number,
+    options: TxOptions = {}
+  ): Promise<TxObject> {
+    const { gasLimit, gasPrice } = options
+
+    const { decimals } = await this.currencyNetwork.getGatedNetwork(
+      gatewayAddress
+    )
+
+    const funcName = 'claim'
+    const funcArgs: any[] = [
+      utils.convertToHexString(utils.calcRaw(claimValue, decimals))
+    ]
+
+    const {
+      rawTx,
+      ethFees,
+      delegationFees
+    } = await this.transaction.prepareContractTransaction(
+      await this.user.getAddress(),
+      gatewayAddress,
+      'CurrencyNetworkGateway',
+      funcName,
+      funcArgs,
+      {
+        gasLimit: gasLimit ? new BigNumber(gasLimit) : undefined,
+        gasPrice: gasPrice ? new BigNumber(gasPrice) : undefined
+      }
+    )
+    return {
+      ethFees: utils.convertToAmount(ethFees),
+      delegationFees: utils.convertToDelegationFees(delegationFees),
+      rawTx
+    }
+  }
+
+  public async preparePayOff(
+    gatewayAddress: string,
+    payOffValue: string | number,
+    options: TxOptions = {}
+  ): Promise<TxObject> {
+    const { gasLimit, gasPrice } = options
+
+    const { decimals } = await this.currencyNetwork.getGatedNetwork(
+      gatewayAddress
+    )
+
+    const funcName = 'payOff'
+    const funcArgs: any[] = [
+      utils.convertToHexString(utils.calcRaw(payOffValue, decimals))
+    ]
+
+    const {
+      rawTx,
+      ethFees,
+      delegationFees
+    } = await this.transaction.prepareContractTransaction(
+      await this.user.getAddress(),
+      gatewayAddress,
+      'CurrencyNetworkGateway',
+      funcName,
+      funcArgs,
+      {
+        gasLimit: gasLimit ? new BigNumber(gasLimit) : undefined,
+        gasPrice: gasPrice ? new BigNumber(gasPrice) : undefined
+      }
+    )
+    return {
+      ethFees: utils.convertToAmount(ethFees),
+      delegationFees: utils.convertToDelegationFees(delegationFees),
+      rawTx
+    }
+  }
+
+  public async closeCollateralized(
+    gatewayAddress: string,
+    options: TxOptions = {}
+  ): Promise<TxObject> {
+    const { gasLimit, gasPrice } = options
+
+    const funcName = 'closeCollateralizedTrustline'
+    const funcArgs: any[] = []
+
+    const {
+      rawTx,
+      ethFees,
+      delegationFees
+    } = await this.transaction.prepareContractTransaction(
+      await this.user.getAddress(),
+      gatewayAddress,
+      'CurrencyNetworkGateway',
+      funcName,
+      funcArgs,
+      {
+        gasLimit: gasLimit ? new BigNumber(gasLimit) : undefined,
+        gasPrice: gasPrice ? new BigNumber(gasPrice) : undefined
+      }
+    )
+    return {
+      ethFees: utils.convertToAmount(ethFees),
+      delegationFees: utils.convertToDelegationFees(delegationFees),
+      rawTx
+    }
+  }
+
   /**
    * Signs a raw transaction object as returned by `prepareAccept` or `prepareUpdate`
    * and sends the signed transaction.

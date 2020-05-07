@@ -185,7 +185,8 @@ export class TLNetwork {
       event: this.event,
       provider: this.provider,
       transaction: this.transaction,
-      user: this.user
+      user: this.user,
+      payment: this.payment
     })
   }
 

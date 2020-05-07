@@ -45,6 +45,18 @@ export class CurrencyNetwork {
     return this.getInfo(gateway.gatedNetworkAddress)
   }
 
+  public async getGateway(
+    networkAddress: string
+  ): Promise<{
+    gatedNetworkAddress: string
+    address: string
+  }> {
+    const gateways = await this.provider.fetchEndpoint<any>(`/gateways`)
+    return gateways.find(
+      gateway => gateway.gatedNetworkAddress === networkAddress
+    )
+  }
+
   public async getShieldedNetwork(
     shieldAddress: string
   ): Promise<NetworkDetails> {
@@ -52,6 +64,20 @@ export class CurrencyNetwork {
       `shields/${shieldAddress}`
     )
     return this.getInfo(shield.networkAddress)
+  }
+
+  public async getShield(
+    networkAddress: string
+  ): Promise<{
+    verifierAddress: string
+    treeHeight: number
+    networkAddress: string
+    treeWidth: number
+    leafCount: number
+    address: string
+  }> {
+    const shields = await this.provider.fetchEndpoint<any>(`/shields`)
+    return shields.find(shield => shield.networkAddress === networkAddress)
   }
 
   /**

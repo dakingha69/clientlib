@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js'
 
 import { CurrencyNetwork } from './CurrencyNetwork'
 import { Event } from './Event'
+import { Payment } from './Payment'
 import { TLProvider } from './providers/TLProvider'
 import { Transaction } from './Transaction'
 import { User } from './User'
@@ -39,6 +40,7 @@ export class Shield {
   private provider: TLProvider
   private transaction: Transaction
   private user: User
+  private payment: Payment
 
   constructor(params: {
     currencyNetwork: CurrencyNetwork
@@ -46,12 +48,14 @@ export class Shield {
     provider: TLProvider
     transaction: Transaction
     user: User
+    payment: Payment
   }) {
     this.event = params.event
     this.user = params.user
     this.transaction = params.transaction
     this.currencyNetwork = params.currencyNetwork
     this.provider = params.provider
+    this.payment = params.payment
   }
 
   /**
@@ -103,9 +107,28 @@ export class Shield {
     const shieldedNetwork = await this.currencyNetwork.getShieldedNetwork(
       shieldAddress
     )
+
     const decimals = await this.currencyNetwork.getDecimals(
       shieldedNetwork.address
     )
+
+    const gateway = await this.currencyNetwork.getGateway(
+      shieldedNetwork.address
+    )
+    const { path } = await this.payment.getTransferPathInfo(
+      shieldedNetwork.address,
+      await this.user.getAddress(),
+      gateway.address,
+      mintValue,
+      {
+        ...options,
+        networkDecimals: decimals.networkDecimals
+      }
+    )
+
+    if (path.length === 0) {
+      throw new Error('No path to mint')
+    }
 
     const funcName = 'mint'
     const funcArgs: any[] = [
@@ -114,7 +137,8 @@ export class Shield {
       utils.convertToHexString(
         utils.calcRaw(mintValue, decimals.networkDecimals)
       ),
-      commitment
+      commitment,
+      path
     ]
 
     const {
@@ -204,6 +228,24 @@ export class Shield {
       shieldedNetwork.address
     )
 
+    const gateway = await this.currencyNetwork.getGateway(
+      shieldedNetwork.address
+    )
+    const { path } = await this.payment.getTransferPathInfo(
+      shieldedNetwork.address,
+      gateway.address,
+      await this.user.getAddress(),
+      burnValue,
+      {
+        ...options,
+        networkDecimals: decimals.networkDecimals
+      }
+    )
+
+    if (path.length === 0) {
+      throw new Error('No path to burn')
+    }
+
     const funcName = 'burn'
     const funcArgs: any[] = [
       proof.map(p => utils.convertToHexString(p)),
@@ -213,7 +255,7 @@ export class Shield {
       utils.convertToHexString(
         utils.calcRaw(burnValue, decimals.networkDecimals)
       ),
-      payTo
+      path
     ]
 
     const {

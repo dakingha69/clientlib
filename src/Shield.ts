@@ -216,7 +216,6 @@ export class Shield {
     root: string,
     nullifier: string,
     burnValue: string | number,
-    payTo: string,
     options: TLOptions = {}
   ): Promise<TxObject> {
     const { gasLimit, gasPrice } = options

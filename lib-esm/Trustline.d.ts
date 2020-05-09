@@ -71,7 +71,7 @@ export declare class Trustline {
      * @param options.gasPrice Custom gas price.
      */
     prepareCancelTrustlineUpdate(networkAddress: string, counterpartyAddress: string, options?: TxOptions): Promise<TxObject>;
-    prepareOpenCollateralized(gatewayAddress: string, collateralValue: string | number, givenToGatewayValue: string | number, options?: TxOptions): Promise<TxObject>;
+    prepareOpenCollateralized(gatewayAddress: string, collateralValue: string | number, options?: TxOptions): Promise<TxObject>;
     prepareClaim(gatewayAddress: string, claimValue: string | number, options?: TxOptions): Promise<TxObject>;
     preparePayOff(gatewayAddress: string, payOffValue: string | number, options?: TxOptions): Promise<TxObject>;
     closeCollateralized(gatewayAddress: string, options?: TxOptions): Promise<TxObject>;

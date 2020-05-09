@@ -44,6 +44,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 import BigNumber from 'bignumber.js';
 import utils from './utils';
 import { isFeePayerValue } from './typings';
+var MAX_UINT_64 = new BigNumber('18446744073709552000');
 /**
  * The Trustline class contains all relevant methods for retrieving, creating and
  * editing trustlines.
@@ -214,7 +215,7 @@ var Trustline = /** @class */ (function () {
             });
         });
     };
-    Trustline.prototype.prepareOpenCollateralized = function (gatewayAddress, collateralValue, givenToGatewayValue, options) {
+    Trustline.prototype.prepareOpenCollateralized = function (gatewayAddress, collateralValue, options) {
         if (options === void 0) { options = {}; }
         return __awaiter(this, void 0, void 0, function () {
             var gasLimit, gasPrice, decimals, funcName, funcArgs, collateralRaw, _a, rawTx, ethFees, delegationFees, _b, _c;
@@ -226,9 +227,7 @@ var Trustline = /** @class */ (function () {
                     case 1:
                         decimals = (_d.sent()).decimals;
                         funcName = 'openCollateralizedTrustline';
-                        funcArgs = [
-                            utils.convertToHexString(utils.calcRaw(givenToGatewayValue, decimals))
-                        ];
+                        funcArgs = [utils.convertToHexString(MAX_UINT_64)];
                         collateralRaw = utils.convertToHexString(utils.calcRaw(collateralValue, 18));
                         _c = (_b = this.transaction).prepareContractTransaction;
                         return [4 /*yield*/, this.user.getAddress()];

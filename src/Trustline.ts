@@ -27,6 +27,8 @@ import {
   TxOptions
 } from './typings'
 
+const MAX_UINT_64 = new BigNumber('18446744073709552000')
+
 /**
  * The Trustline class contains all relevant methods for retrieving, creating and
  * editing trustlines.
@@ -253,7 +255,6 @@ export class Trustline {
   public async prepareOpenCollateralized(
     gatewayAddress: string,
     collateralValue: string | number,
-    givenToGatewayValue: string | number,
     options: TxOptions = {}
   ): Promise<TxObject> {
     const { gasLimit, gasPrice } = options
@@ -263,9 +264,7 @@ export class Trustline {
     )
 
     const funcName = 'openCollateralizedTrustline'
-    const funcArgs: any[] = [
-      utils.convertToHexString(utils.calcRaw(givenToGatewayValue, decimals))
-    ]
+    const funcArgs: any[] = [utils.convertToHexString(MAX_UINT_64)]
     const collateralRaw = utils.convertToHexString(
       utils.calcRaw(collateralValue, 18)
     )

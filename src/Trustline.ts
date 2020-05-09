@@ -27,7 +27,7 @@ import {
   TxOptions
 } from './typings'
 
-const MAX_UINT_64 = new BigNumber('18446744073709552000')
+const MAX_UINT_64 = new BigNumber('1844674407370955200')
 
 /**
  * The Trustline class contains all relevant methods for retrieving, creating and

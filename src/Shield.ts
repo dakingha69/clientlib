@@ -216,6 +216,7 @@ export class Shield {
     root: string,
     nullifier: string,
     burnValue: string | number,
+    payTo: string,
     options: TLOptions = {}
   ): Promise<TxObject> {
     const { gasLimit, gasPrice } = options
@@ -233,7 +234,7 @@ export class Shield {
     const { path } = await this.payment.getTransferPathInfo(
       shieldedNetwork.address,
       gateway.address,
-      await this.user.getAddress(),
+      payTo,
       burnValue,
       {
         ...options,
